@@ -1,9 +1,13 @@
-#include "Afe_Release.h"
 #include "Cdd_Sa63122_DevAdapter.h"
 
 #define AFE_DEV_INSTANCE ((void*)Sa63122_DevGet())
 
 /*************************** 释放底层初始化/调度函数 ***************************/
+/**
+ * @brief  AFE初始化函数，需要在底层初始化中调用
+ * @param  none
+ * @retval none
+ */
 void Afe_Init(void)
 {
     Sa63122_DevType* Ar_valDev_Lo = Sa63122_DevGet();
@@ -20,6 +24,11 @@ void Afe_Init(void)
     }
 }
 
+/**
+ * @brief  AFE的10ms调度函数，需要在OS的任务中调用
+ * @param  none
+ * @retval none
+ */
 void Afe_MainFunction_10ms(void)
 {
     Sa63122_DevType* Ar_valDev_Lo = Sa63122_DevGet();
@@ -44,18 +53,6 @@ uint8_t Cdd_Afe_GetVoltageValue(uint8_t ValChId, uint16_t* ValVoltage)
     return E_OK;
 }
 
-uint8_t Cdd_Afe_GetCellOplStat(uint8_t ValChId, uint32_t* ValStat)
-{
-    Sa63122_DevType* Ar_valDev_Lo = Sa63122_DevGet();
-
-    if(ValChId >= CELL_NUMBER_MAX)
-        return E_NOT_OK;
-
-    *ValStat = Ar_valDev_Lo->base.get_cell_opl(ValChId);
-
-    return E_OK;
-}
-
 uint8_t Cdd_Afe_GetRistValue(uint8_t ValChId, uint32_t* ValRist)
 {
     Sa63122_DevType* Ar_valDev_Lo = Sa63122_DevGet();
@@ -68,22 +65,15 @@ uint8_t Cdd_Afe_GetRistValue(uint8_t ValChId, uint32_t* ValRist)
     return E_OK;
 }
 
-uint8_t Cdd_Afe_GetRistOplStat(uint8_t ValChId, uint32_t* ValStat)
+uint8_t Cdd_Afe_GetCellOplStat(uint8_t ValChId, uint32_t* ValStat)
 {
     Sa63122_DevType* Ar_valDev_Lo = Sa63122_DevGet();
 
-    if(ValChId >= GPIO_NUMBER_MAX)
+    if(ValChId >= CELL_NUMBER_MAX)
         return E_NOT_OK;
 
-    *ValStat = Ar_valDev_Lo->base.get_rist_opl(ValChId);
+    *ValStat = Ar_valDev_Lo->base.get_cell_opl(ValChId);
 
-    return E_OK;
-}
-
-uint8_t Cdd_Afe_GetCurrentValue(uint8_t ValChId, float* ValCurrent)
-{
-    /* 保留 */
-    /* 电流采集在高压采集芯片 */
     return E_OK;
 }
 
@@ -109,21 +99,4 @@ uint8_t Cdd_Afe_GetBalanceStatus(uint8_t ValChId, uint32_t* ValBalStat)
     *ValBalStat = Ar_valDev_Lo->base.get_cell_bal_stat(ValChId);
 
     return E_OK;
-}
-
-uint8_t bal_en_mp = 0;
-uint32_t bal_cfg_mp = 0;
-uint32_t bal_status = 0;
-uint16_t vol_buff[18] = {0};
-uint32_t rist_buff[12] = {0};
-void afe_release_function(void)
-{
-    uint8_t i = 0;
-
-    for(i = 0;i < 18;i++)
-        Cdd_Afe_GetVoltageValue(i, &vol_buff[i]);
-    for(i = 0;i < 12;i++)
-        Cdd_Afe_GetRistValue(i, &rist_buff[i]);
-    Cdd_Afe_SetBalance(0, bal_cfg_mp, bal_en_mp);
-    Cdd_Afe_GetBalanceStatus(0, &bal_status);
 }

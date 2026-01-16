@@ -29,10 +29,6 @@ void Sa63122_DevProcess(void* dev)
         Cas_valDev_Lo->status = AFE_STATUS_ACQU;
         break;
 	case AFE_STATUS_ACQU:
-#if 1
-        extern void afe_release_function(void);
-        afe_release_function();
-#endif
        Sa63122_ReadCellVoltage(Cas_valDev_Lo->curr_dev + 1);
        Sa63122_ReadGpioVoltage(Cas_valDev_Lo->curr_dev + 1);
         Cas_valDev_Lo->curr_dev++;

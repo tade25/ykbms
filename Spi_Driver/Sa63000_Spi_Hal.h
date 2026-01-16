@@ -42,8 +42,9 @@ typedef enum {
  */
 typedef enum {
     Spi_Single_Write    = 1,
-    Spi_Stack_Write     = 3,  
+    Spi_Stack_Write     = 3,    // SA63000 and SA63122
     Spi_Addressing      = 4,
+    Spi_BroadCast_Write = 5,    // only for SA63280
 } Sa63000_Spi_WType;
 
 /*

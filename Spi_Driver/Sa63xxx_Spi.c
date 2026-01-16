@@ -1,4 +1,4 @@
-#include "Cdd_Sa63xxx_Spi.h"
+#include "Sa63xxx_Spi.h"
 
 uint8_t Css_valTxBuffer_Mp[SA63000_CONFIG_SPI_TX_BUFFER_SIZE] = {0};
 uint8_t Css_valRxBuffer_Mp[SA63000_CONFIG_SPI_RX_BUFFER_SIZE] = {0};

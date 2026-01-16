@@ -1,5 +1,5 @@
-#ifndef __CDD_SA63XXX_SPI_H_
-#define __CDD_SA63XXX_SPI_H_
+#ifndef __SA63XXX_SPI_H_
+#define __SA63XXX_SPI_H_
 
 #include "Sa63xxx_Reg_Types.h"
 #include "Sa63000_Spi_Hal.h"
@@ -63,4 +63,4 @@ extern Std_ReturnType Sa63122_ReadRegister(
     uint8_t data_len
 );
 
-#endif /* __CDD_SA63XXX_SPI_H_ */
+#endif /* __SA63XXX_SPI_H_ */

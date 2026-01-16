@@ -2,7 +2,7 @@
 #define __CDD_SA63122_DRIVER_H_
 
 #include "Afe_Types.h"
-#include "Cdd_Sa63xxx_Spi.h"
+#include "Sa63xxx_Spi.h"
 
 /********************************* 宏定义 ****************************************/
 #define SA63122_UINT8_COMBINE_TO_UINT16(high_byte, low_byte)  ((uint16_t)(((uint16_t)(high_byte) << 8) |\
