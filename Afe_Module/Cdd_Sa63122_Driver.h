@@ -2,7 +2,7 @@
 #define __CDD_SA63122_DRIVER_H_
 
 #include "Afe_Types.h"
-#include "Sa63xxx_Spi.h"
+#include "Sa63xxx_Spi_Com.h"
 
 /********************************* 宏定义 ****************************************/
 #define SA63122_UINT8_COMBINE_TO_UINT16(high_byte, low_byte)  ((uint16_t)(((uint16_t)(high_byte) << 8) |\
@@ -19,16 +19,13 @@
 #define SA63122_GPIO_NUMBER                         12
 #define SA63122_FACT_REG1_MAX                       (10)
 #define SA63122_FACT_REG2_MAX                       (128)
-// #define SA63122_DELAY_28MS  7000 * AFE_NUMBER* (SA63000_CONFIG_DELAY_1US_CNT)
-#define SA63122_DELAY_14MS                          7000 * 2* (SA63000_CONFIG_DELAY_1US_CNT)
-#define SA63122_DELAY_78MS                          78000 * (SA63000_CONFIG_DELAY_1US_CNT)
 
 #define SA63122_CALC_CELL_VOLTAGE(vol_buf)          (uint16_t)(0.2 * vol_buf)
 #define SA63122_CALC_GPIO_VOLTAGE(vol_buf)          (0.00004 * 2.5 * vol_buf)
 #define SA63122_CALC_TEMP_RIST(vol)                 (uint32_t)(10000.0 * (vol) / (2.5 - (vol)))
 
-#define CELL_NUMBER_MAX                             (AFE_NUMBER) * (SA63122_CELL_NUMBER)
-#define GPIO_NUMBER_MAX                             (AFE_NUMBER) * (SA63122_GPIO_NUMBER)
+#define CELL_NUMBER_MAX                             (SA63XXX_CONFIG_AFE_NUM) * (SA63122_CELL_NUMBER)
+#define GPIO_NUMBER_MAX                             (SA63XXX_CONFIG_AFE_NUM) * (SA63122_GPIO_NUMBER)
 
 #define BAL_CURRENT_STATE_BIT                       0U     // bit0：当前均衡开关状态
 #define BAL_LAST_STATE_BIT                          1U     // bit1：上一次均衡开关状态
@@ -564,29 +561,29 @@ typedef struct {
 } Sa63122_RegRecordType;
 
 typedef struct {
-    Sa63122_RegRecordType reg_record[AFE_NUMBER];
-    uint32_t bal_cfg[AFE_NUMBER];
-    uint32_t cell_opl[AFE_NUMBER];
-    uint16_t Cell_Voltage_Buffer[AFE_NUMBER * SA63122_CELL_NUMBER];
-    uint16_t Gpio_Voltage_Buffer[AFE_NUMBER * SA63122_GPIO_NUMBER];
-    uint16_t rist_opl[AFE_NUMBER];
-    uint16_t cell_opl_vol_buf1[AFE_NUMBER * SA63122_CELL_NUMBER];
-    uint8_t status[AFE_NUMBER];
-    uint8_t bal_status[3 * AFE_NUMBER];
+    Sa63122_RegRecordType reg_record[SA63XXX_CONFIG_AFE_NUM];
+    uint32_t bal_cfg[SA63XXX_CONFIG_AFE_NUM];
+    uint32_t cell_opl[SA63XXX_CONFIG_AFE_NUM];
+    uint16_t Cell_Voltage_Buffer[SA63XXX_CONFIG_AFE_NUM * SA63122_CELL_NUMBER];
+    uint16_t Gpio_Voltage_Buffer[SA63XXX_CONFIG_AFE_NUM * SA63122_GPIO_NUMBER];
+    uint16_t rist_opl[SA63XXX_CONFIG_AFE_NUM];
+    uint16_t cell_opl_vol_buf1[SA63XXX_CONFIG_AFE_NUM * SA63122_CELL_NUMBER];
+    uint8_t status[SA63XXX_CONFIG_AFE_NUM];
+    uint8_t bal_status[3 * SA63XXX_CONFIG_AFE_NUM];
 }Sa63122_DriverType;
 
 /********************************* 内联函数 ****************************************/
 /**
  * @brief  更新指定AFE的均衡上一次状态（将当前状态值赋给上一次状态）
  * @param  p_driver: 指向Sa63122_DriverType结构体的指针
- * @param  afe_idx:  AFE索引（0 ~ AFE_NUMBER-1）
+ * @param  afe_idx:  AFE索引（0 ~ SA63XXX_CONFIG_AFE_NUM-1）
  * @retval bool:     操作成功返回true，参数错误返回false
  */
 static inline bool Sa63122_UpdateBalLastState(Sa63122_DriverType *p_driver, uint8_t afe_idx)
 {
     uint8_t current_state = (p_driver->status[afe_idx] & BAL_CURRENT_STATE_MASK) >> BAL_CURRENT_STATE_BIT;
 
-    if (p_driver == NULL || afe_idx >= AFE_NUMBER) {
+    if (p_driver == NULL || afe_idx >= SA63XXX_CONFIG_AFE_NUM) {
         return false;
     }
     
@@ -599,13 +596,13 @@ static inline bool Sa63122_UpdateBalLastState(Sa63122_DriverType *p_driver, uint
 /**
  * @brief  设置指定AFE的均衡当前状态（更新bit0）
  * @param  p_driver: 指向Sa63122_DriverType结构体的指针
- * @param  afe_idx:  AFE索引（0 ~ AFE_NUMBER-1）
+ * @param  afe_idx:  AFE索引（0 ~ SA63XXX_CONFIG_AFE_NUM-1）
  * @param  is_on:    均衡开关状态（true=开启，false=关闭）
  * @retval bool:     操作成功返回true，参数错误返回false
  */
 static inline bool Sa63122_SetBalCurrentState(Sa63122_DriverType *p_driver, uint8_t afe_idx, bool is_on)
 {
-    if (p_driver == NULL || afe_idx >= AFE_NUMBER) {
+    if (p_driver == NULL || afe_idx >= SA63XXX_CONFIG_AFE_NUM) {
         return false;
     }
 
@@ -620,12 +617,12 @@ static inline bool Sa63122_SetBalCurrentState(Sa63122_DriverType *p_driver, uint
 /**
  * @brief  获取指定AFE的均衡当前状态
  * @param  p_driver: 指向Sa63122_DriverType结构体的指针
- * @param  afe_idx:  AFE索引（0 ~ AFE_NUMBER-1）
+ * @param  afe_idx:  AFE索引（0 ~ SA63XXX_CONFIG_AFE_NUM-1）
  * @retval bool:     有效状态返回true/false，参数错误返回false
  */
 static inline bool Sa63122_GetBalCurrentState(const Sa63122_DriverType *p_driver, uint8_t afe_idx)
 {
-    if (p_driver == NULL || afe_idx >= AFE_NUMBER) {
+    if (p_driver == NULL || afe_idx >= SA63XXX_CONFIG_AFE_NUM) {
         return false;
     }
     return (p_driver->status[afe_idx] & BAL_CURRENT_STATE_MASK) != 0;
@@ -634,12 +631,12 @@ static inline bool Sa63122_GetBalCurrentState(const Sa63122_DriverType *p_driver
 /**
  * @brief  获取指定AFE的均衡上一次状态
  * @param  p_driver: 指向Sa63122_DriverType结构体的指针
- * @param  afe_idx:  AFE索引（0 ~ AFE_NUMBER-1）
+ * @param  afe_idx:  AFE索引（0 ~ SA63XXX_CONFIG_AFE_NUM-1）
  * @retval bool:     有效状态返回true/false，参数错误返回false
  */
 static inline bool Sa63122_GetBalLastState(const Sa63122_DriverType *p_driver, uint8_t afe_idx)
 {
-    if (p_driver == NULL || afe_idx >= AFE_NUMBER) {
+    if (p_driver == NULL || afe_idx >= SA63XXX_CONFIG_AFE_NUM) {
         return false;
     }
     return (p_driver->status[afe_idx] & BAL_LAST_STATE_MASK) != 0;
@@ -649,9 +646,6 @@ static inline bool Sa63122_GetBalLastState(const Sa63122_DriverType *p_driver, u
 extern Sa63122_DriverType* Sa63122_DriverGet(void);
 extern void Sa63122_Reg_CalcCrc(uint8_t dev_addr);
 extern void Sa63122_Reg_WriteCrc(uint8_t dev_addr);
-extern void Sa63000_RegConfig(void);
-extern void Sa63000_SendWakeTone(void);
-extern void Sa63122_SendAddressing(void);
 extern void Sa63122_ReadFact(void);
 extern void Sa63122_RegConfig(void);
 extern void Sa63122_StartAdc(void);

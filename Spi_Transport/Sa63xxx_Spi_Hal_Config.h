@@ -15,12 +15,18 @@
 #ifndef __SA63000_SPI_HAL_CONFIG_H_
 #define __SA63000_SPI_HAL_CONFIG_H_
 
+// #define MCU_CHIP_TYPE                           CCORE3007
+// #define MCU_CHIP_TYPE                           CCORE3008
 #define MCU_CHIP_TYPE                           CCORE3011
+// #define MCU_CHIP_TYPE                           CCORE3012
 // #define MCU_CHIP_TYPE                           ZX146
 #define SA63000_CONFIG_VIO                      1
 #define SA63000_CONFIG_SPI_READY                1
-#define SA63000_CONFIG_SPI_TX_BUFFER_SIZE       70
-#define SA63000_CONFIG_SPI_RX_BUFFER_SIZE       70
-#define SA63000_CONFIG_DELAY_1US_CNT            60
+#define SA63XXX_CONFIG_SPI_TX_BUFFER_SIZE       70
+#define SA63XXX_CONFIG_SPI_RX_BUFFER_SIZE       70
+#define SA63XXX_CONFIG_DELAY_1US_CNT            55
+#define SA63XXX_CONFIG_DELAY_100US_CNT          5500
+#define SA63XXX_CONFIG_DELAY_1MS_CNT            55000
+#define SA63XXX_CONFIG_AFE_NUM                  4
 
 #endif __SA63000_SPI_HAL_CONFIG_H_

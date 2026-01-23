@@ -1,22 +1,20 @@
 #ifndef __SA63XXX_REG_TYPES_H_
 #define __SA63XXX_REG_TYPES_H_
 
-// typedef enum {
-
-// } Sa63280_RegType;
+#include <stdint.h>
 
 typedef enum {
-    Sa63000_Comm_Conf   = 0x0000,
-    Sa63000_Comm_To     = 0x0001,
-    Sa63000_Flt_Mask1   = 0x0002,
-    Sa63000_Flt_Mask2   = 0x0003,
-    Sa63000_Control     = 0x2000,
-    Sa63000_Fltl        = 0x5002,
-    Sa63000_Flt2        = 0x5003
+    SA63000_COMM_CONF   = 0x0000,
+    SA63000_COMM_TO     = 0x0001,
+    SA63000_FLT_MASK1   = 0x0002,
+    SA63000_FLT_MASK2   = 0x0003,
+    SA63000_CONTROL     = 0x2000,
+    SA63000_FLT1        = 0x5002,
+    SA63000_FLT2        = 0x5003
 } Sa63000_RegType;
 
 typedef enum {
-    /* 基础配置寄存器 0x0000 ~ 0x001E */
+    /* 基础配置寄存器 */
     DEV_ADD1                = 0x0000,
     DEV_ADD2                = 0x0001,
     COMM_CONF1              = 0x0002,
@@ -48,8 +46,7 @@ typedef enum {
     GPIO_DI_EN2             = 0x001C,
     GPIO_WEAK_PUPD_EN1      = 0x001D,
     GPIO_WEAK_PUPD_EN2      = 0x001E,
-
-    /* 故障掩码寄存器 0x0100 ~ 0x0117 */
+    /* 故障掩码寄存器 */
     FLT_SUM_MSK             = 0x0100,
     RSVD_0101               = 0x0101,
     RSVD_0102               = 0x0102,
@@ -74,8 +71,7 @@ typedef enum {
     RSVD_0115               = 0x0115,
     SYS_FLT_MSK4            = 0x0116,
     SYS_FLT_MSK5            = 0x0117,
-
-    /* 工厂寄存器 Part1 (0x0800 ~ 0x0809) */
+    /* 工厂寄存器 Part1 */
     FACT_REG1               = 0x0800,
     FACT_REG2               = 0x0801,
     FACT_REG3               = 0x0802,
@@ -86,8 +82,7 @@ typedef enum {
     FACT_REG8               = 0x0807,
     FACT_REG9               = 0x0808,
     FACT_REG10              = 0x0809,
-
-    /* 工厂寄存器 Part2 (0x1000 ~ 0x107F) */
+    /* 工厂寄存器 Part2 */
     FACT_REG11              = 0x1000,
     FACT_REG12              = 0x1001,
     FACT_REG13              = 0x1002,
@@ -216,8 +211,7 @@ typedef enum {
     FACT_REG136             = 0x107D,
     FACT_REG137             = 0x107E,
     FACT_REG138             = 0x107F,
-
-    /* 配置CRC及控制寄存器 0x2000 ~ 0x202E */
+    /* 配置CRC及控制寄存器 */
     CONF_CRC_H              = 0x2000,
     CONF_CRC_L              = 0x2001,
     CTRL1                   = 0x2002,
@@ -265,21 +259,17 @@ typedef enum {
     CB_TO_CH18_L            = 0x202C,
     GPIO_DO_HL1             = 0x202D,
     GPIO_DO_HL2             = 0x202E,
-
-    /* GPIO弱上拉配置 0x2101 ~ 0x2102 */
+    /* GPIO弱上拉配置 */
     GPIO_WEAK_PUPD1         = 0x2101,
     GPIO_WEAK_PUPD2         = 0x2102,
-
-    /* I2C主机控制 0x2200 ~ 0x2202 */
+    /* I2C主机控制 */
     I2C_MAS_CTRL            = 0x2200,
     I2C_TR                  = 0x2201,
     I2C_RD                  = 0x2202,
-
-    /* 状态寄存器 - 计数类 0x3FFE ~ 0x3FFF */
+    /* 状态寄存器 - 计数类 */
     RR_CNT_H                = 0x3FFE,
     RR_CNT_L                = 0x3FFF,
-
-    /* 通道数据寄存器 CH1~CH18 (高低位) 0x4000 ~ 0x4023 */
+    /* 通道数据寄存器 CH1~CH18 (高低位) */
     CH1_H                   = 0x4000,
     CH1_L                   = 0x4001,
     CH2_H                   = 0x4002,
@@ -316,8 +306,7 @@ typedef enum {
     CH17_L                  = 0x4021,
     CH18_H                  = 0x4022,
     CH18_L                  = 0x4023,
-
-    /* 辅助通道数据寄存器 AUX_CH1~CH18 (高低位) 0x4024 ~ 0x4047 */
+    /* 辅助通道数据寄存器 AUX_CH1~CH18 (高低位) */
     AUX_CH1_H               = 0x4024,
     AUX_CH1_L               = 0x4025,
     AUX_CH2_H               = 0x4026,
@@ -354,8 +343,7 @@ typedef enum {
     AUX_CH17_L              = 0x4045,
     AUX_CH18_H              = 0x4046,
     AUX_CH18_L              = 0x4047,
-
-    /* GPIO数据寄存器 GPIO0~GPIO11 (高低位) 0x4090 ~ 0x40A7 */
+    /* GPIO数据寄存器 GPIO0~GPIO11 (高低位) */
     GPIO0_H                 = 0x4090,
     GPIO0_L                 = 0x4091,
     GPIO1_H                 = 0x4092,
@@ -380,8 +368,7 @@ typedef enum {
     GPIO10_L                = 0x40A5,
     GPIO11_H                = 0x40A6,
     GPIO11_L                = 0x40A7,
-
-    /* 辅助GPIO数据寄存器 AUX_GPIO0~GPIO11 (高低位) 0x40A8 ~ 0x40BF */
+    /* 辅助GPIO数据寄存器 AUX_GPIO0~GPIO11 (高低位) */
     AUX_GPIO0_H             = 0x40A8,
     AUX_GPIO0_L             = 0x40A9,
     AUX_GPIO1_H             = 0x40AA,
@@ -406,16 +393,14 @@ typedef enum {
     AUX_GPIO10_L            = 0x40BD,
     AUX_GPIO11_H            = 0x40BE,
     AUX_GPIO11_L            = 0x40BF,
-
-    /* 基准电压/温度数据寄存器 0x40C0 ~ 0x40C9 */
+    /* 基准电压/温度数据寄存器 */
     VPTAT_H                 = 0x40C0,
     VPTAT_L                 = 0x40C1,
     VBG2_H                  = 0x40C4,
     VBG2_L                  = 0x40C5,
     VBAT_H                  = 0x40C8,
     VBAT_L                  = 0x40C9,
-
-    /* 计数/状态寄存器 0x5000 ~ 0x500A */
+    /* 计数/状态寄存器 */
     FR_CNT_H                = 0x5000,
     FR_CNT_L                = 0x5001,
     GPIO_DI_HL1             = 0x5002,
@@ -427,8 +412,7 @@ typedef enum {
     CB_ODD_CNT_L            = 0x5008,
     CB_EVEN_CNT_H           = 0x5009,
     CB_EVEN_CNT_L           = 0x500A,
-
-    /* 故障状态寄存器 0x5100 ~ 0x5117 */
+    /* 故障状态寄存器 */
     FLT_SUM                 = 0x5100,
     OV_FLT1                 = 0x5104,
     OV_FLT2                 = 0x5105,
@@ -451,5 +435,183 @@ typedef enum {
     SYS_FLT4                = 0x5116,
     SYS_FLT5                = 0x5117
 } Sa63122_RegType;
+
+typedef enum {
+    /* 配置寄存器 */
+    SA63280_COMM_CONF1              = 0x0000,
+    SA63280_COMM_CONF2              = 0x0001,
+    SA63280_DEV_CONF1               = 0x0002,
+    SA63280_DEV_CONF2               = 0x0003,
+    SA63280_DEV_CONF3               = 0x0004,
+    SA63280_OVUV_CONF               = 0x0005,
+    SA63280_OC_CONF1                = 0x0006,
+    SA63280_OC_CONF2                = 0x0007,
+    SA63280_OC_CONF3                = 0x0008,
+    SA63280_OC_CONF4                = 0x0009,
+    SA63280_OC_CONF5                = 0x000A,
+    SA63280_OC_CONF6                = 0x000B,
+    SA63280_OC_CONF7                = 0x000C,
+    SA63280_OC_CONF8                = 0x000D,
+    SA63280_OC_CONF9                = 0x000E,
+    SA63280_CC_OF_THR               = 0x0014,
+    SA63280_GPIO_CONF1              = 0x0015,
+    SA63280_GPIO_CONF2              = 0x0016,
+    SA63280_GPIO_DO_EN1             = 0x0017,
+    SA63280_GPIO_DO_EN2             = 0x0018,
+    SA63280_GPIO_10V_DO_EN          = 0x001A,
+    SA63280_GPIO_DI_EN1             = 0x001B,
+    SA63280_GPIO_DI_EN2             = 0x001C,
+    SA63280_VMUX_SEL1               = 0x001D,
+    SA63280_VMUX_SEL2               = 0x001E,
+    SA63280_VMUX_SEL3               = 0x001F,
+    SA63280_MSPI_CONF               = 0x0020,
+    SA63280_TX_HOLD_OFF             = 0x0021,
+    SA63280_DEBUG_REG               = 0x0022,
+
+    /* 错误掩码寄存器 */
+    SA63280_OV_UV_FLT1_MSK          = 0x0100,
+    SA63280_OV_UV_FLT2_MSK          = 0x0101,
+    SA63280_V_GPIO_COMP_FLT1_MSK    = 0x0108,
+    SA63280_V_GPIO_COMP_FLT2_MSK    = 0x0109,
+    SA63280_V_GPIO_COMP_FLT3_MSK    = 0x010A,
+    SA63280_V_GPIO_COMP_FLT4_MSK    = 0x010B,
+    SA63280_V_GPIO_OW_FLT1_MSK      = 0x010C,
+    SA63280_V_GPIO_OW_FLT2_MSK      = 0x010D,
+    SA63280_V_GPIO_OW_FLT3_MSK      = 0x010E,
+    SA63280_V_GPIO_OW_FLT4_MSK      = 0x010F,
+    SA63280_SYS_FLT1_MSK            = 0x0121,
+    SA63280_SYS_FLT2_MSK            = 0x0122,
+    SA63280_SYS_FLT3_MSK            = 0x0123,
+
+    /* NVM/MTP寄存器 */
+    SA63280_CUST_SPACE_1            = 0x1000,
+    SA63280_CUST_SPACE_2            = 0x1001,
+    SA63280_CUST_SPACE_3            = 0x1002,
+    SA63280_CUST_SPACE_4            = 0x1003,
+    SA63280_CUST_SPACE_5            = 0x1004,
+    SA63280_CUST_SPACE_6            = 0x1005,
+    SA63280_CUST_SPACE_7            = 0x1006,
+    SA63280_CUST_SPACE_8            = 0x1007,
+    SA63280_DIE_ID                  = 0x114D,
+    SA63280_MTP_SECTOR_CTRL         = 0x1FFC,
+    SA63280_MTP_STATUS              = 0x1FFD,
+    SA63280_MTP_KEY                 = 0x1FFE,
+    SA63280_MTP_CTRL                = 0x1FFF,
+
+    /* 控制寄存器 */
+    SA63280_CTRL1                   = 0x2002,
+    SA63280_CTRL2                   = 0x2003,
+    SA63280_DIAG_CTRL1              = 0x2004,
+    SA63280_DIAG_CTRL2              = 0x2005,
+    SA63280_DIAG_CTRL3              = 0x2006,
+    SA63280_DIAG_STAT               = 0x202C,
+    SA63280_GPIO_OUT1               = 0x202D,
+    SA63280_GPIO_OUT2               = 0x202E,
+    SA63280_GPIO_10V_OUT            = 0x202F,
+    SA63280_PWM_1K_OUT              = 0x2030,
+
+    /* I2C/MSPI寄存器 */
+    SA63280_I2C_MAS_CTRL            = 0x2200,
+    SA63280_I2C_TX                  = 0x2201,
+    SA63280_I2C_RX                  = 0x2202,
+    SA63280_MSPI_CTRL1              = 0x2203,
+    SA63280_MSPI_CTRL2              = 0x2204,
+    SA63280_MSPI_MOSI4              = 0x2205,
+    SA63280_MSPI_MOSI3              = 0x2206,
+    SA63280_MSPI_MOSI2              = 0x2207,
+    SA63280_MSPI_MOSI1              = 0x2208,
+    SA63280_MSPI_MISO4              = 0x2209,
+    SA63280_MSPI_MISO3              = 0x220A,
+    SA63280_MSPI_MISO2              = 0x220B,
+    SA63280_MSPI_MISO1              = 0x220C,
+
+    /* 采集数据寄存器 */
+    SA63280_V10_H                   = 0x4000,
+    SA63280_V10_L                   = 0x4001,
+    SA63280_V9_H                    = 0x4002,
+    SA63280_V9_L                    = 0x4003,
+    SA63280_V8_H                    = 0x4004,
+    SA63280_V8_L                    = 0x4005,
+    SA63280_V7_H                    = 0x4006,
+    SA63280_V7_L                    = 0x4007,
+    SA63280_V6_H                    = 0x4008,
+    SA63280_V6_L                    = 0x4009,
+    SA63280_V5_H                    = 0x400A,
+    SA63280_V5_L                    = 0x400B,
+    SA63280_V4_H                    = 0x400C,
+    SA63280_V4_L                    = 0x400D,
+    SA63280_V3_H                    = 0x400E,
+    SA63280_V3_L                    = 0x400F,
+    SA63280_V2_H                    = 0x4010,
+    SA63280_V2_L                    = 0x4011,
+    SA63280_V1_H                    = 0x4012,
+    SA63280_V1_L                    = 0x4013,
+    SA63280_VP1_FIL_H               = 0x4014,
+    SA63280_VP1_FIL_L               = 0x4015,
+    SA63280_CURRENT1_IL_H           = 0x4016,
+    SA63280_CURRENT1_IL_M           = 0x4017,
+    SA63280_CURRENT1_IL_L           = 0x4018,
+    SA63280_CURRENT2_H              = 0x4020,
+    SA63280_CURRENT2_M              = 0x4021,
+    SA63280_CURRENT2_L              = 0x4022,
+    SA63280_RR_CNT                  = 0x4023,
+    SA63280_CS_CNT                  = 0x4024,
+    SA63280_FR_CNT                  = 0x4025,
+    SA63280_PWR_H                   = 0x4036,
+    SA63280_PWR_L                   = 0x4037,
+    SA63280_CP_H                    = 0x4038,
+    SA63280_CP_L                    = 0x4039,
+    SA63280_DIAG_VBG2_H             = 0x403A,
+    SA63280_DIAG_VBG2_L             = 0x403B,
+    SA63280_DIAG_DIETEMP_P_H        = 0x403C,
+    SA63280_DIAG_DIETEMP_P_L        = 0x403D,
+    SA63280_TBYTE_CNT_H             = 0x403E,
+    SA63280_TBYTE_CNT_L             = 0x403F,
+    SA63280_CONF_CRC_H              = 0x4040,
+    SA63280_CONF_CRC_L              = 0x4041,
+    SA63280_TREF_H                  = 0x4044,
+    SA63280_TREF_L                  = 0x4045,
+    SA63280_GPIO1_H                 = 0x4046,
+    SA63280_GPIO1_L                 = 0x4047,
+    SA63280_GPIO12_H                = 0x405C,
+    SA63280_GPIO12_L                = 0x405D,
+    SA63280_GPIO1_10V_H             = 0x405E,
+    SA63280_GPIO1_10V_L             = 0x405F,
+    SA63280_GPIO6_10V_H             = 0x4068,
+    SA63280_GPIO6_10V_L             = 0x4069,
+    SA63280_TREF_2_H                = 0x406A,
+    SA63280_TREF_2_L                = 0x406B,
+    /* 库伦计数 */
+    SA63280_CC1                     = 0x4100,
+    SA63280_CC2                     = 0x4101,
+    SA63280_CC3                     = 0x4102,
+    SA63280_CC4                     = 0x4103,
+    SA63280_CC5                     = 0x4104,
+    SA63280_CC6                     = 0x4105,
+    SA63280_CC_CNT_H                = 0x4106,
+    SA63280_CC_CNT_M                = 0x4107,
+    SA63280_CC_CNT_L                = 0x4108,
+    SA63280_PWM_1K_IN               = 0x4109,
+    SA63280_DIAG_MEAS_MAIN_H        = 0x410A,
+    SA63280_DIAG_MEAS_MAIN_L        = 0x410B,
+    SA63280_DIAG_MEAS_RDNT_H        = 0x410C,
+    SA63280_DIAG_MEAS_RDNT_L        = 0x410D,
+    SA63280_GPIO_DI_STAT1           = 0x410E,
+    SA63280_GPIO_DI_STAT2           = 0x410F,
+    /* 错误状态寄存器 */
+    SA63280_OV_UV_FLT1              = 0x5100,
+    SA63280_OV_UV_FLT2              = 0x5101,
+    SA63280_V_GPIO_COMP_FLT1        = 0x5102,
+    SA63280_V_GPIO_COMP_FLT2        = 0x5103,
+    SA63280_V_GPIO_COMP_FLT3        = 0x5104,
+    SA63280_V_GPIO_COMP_FLT4        = 0x5105,
+    SA63280_V_GPIO_OW_FLT1          = 0x5106,
+    SA63280_V_GPIO_OW_FLT2          = 0x5107,
+    SA63280_V_GPIO_OW_FLT3          = 0x5108,
+    SA63280_V_GPIO_OW_FLT4          = 0x5109,
+    SA63280_SYS_FLT1                = 0x5113,
+    SA63280_SYS_FLT2                = 0x5114,
+    SA63280_SYS_FLT3                = 0x5115,
+} SA63280_RegType;
 
 #endif /* __SA63XXX_REG_TYPES_H_ */

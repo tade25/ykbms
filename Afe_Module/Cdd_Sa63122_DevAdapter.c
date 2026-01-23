@@ -1,11 +1,10 @@
 #include "Cdd_Sa63122_DevAdapter.h"
+#include "Cdd_Sa63000_Driver.h"
 
 bool Sa63122_Devinit(void* dev)
 {
-    Sa63000_Spi_Hal_Init(&Ssh_valConfig_Mp);
-    Sa63000_RegConfig();
-    Sa63000_SendWakeTone();
-    Sa63122_SendAddressing();
+    Sa63000_WakeUpDevices();
+    
     Sa63122_ReadFact();
     Sa63122_RegConfig();
     Sa63122_Reg_CalcCrc(0xFF);
@@ -17,6 +16,7 @@ bool Sa63122_Devinit(void* dev)
 
 void Sa63122_DevProcess(void* dev)
 {
+#if 0
     uint8_t i = 0;
     Sa63122_DevType* Cas_valDev_Lo = (Sa63122_DevType*)dev;
 
@@ -55,6 +55,7 @@ void Sa63122_DevProcess(void* dev)
     default:
         break;
     }
+#endif
 }
 
 uint16_t Sa63122_DevGetCellVoltage(uint8_t index)
